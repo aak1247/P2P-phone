@@ -26,6 +26,7 @@ public class Utils {
         Utils utils = new Utils();
         utils.setHost("aak1247", "192.169.0.1");
         System.out.println(utils.getHost("aak1247"));
+        System.out.println(utils.getPort());
     }
 
     /**
@@ -59,4 +60,5 @@ public class Utils {
     public Properties getProperties() {
         return this.properties;
     }
+
 }
