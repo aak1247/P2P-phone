@@ -69,4 +69,8 @@ public class Audio {
             sourceDataLine.close();
         }
     }
+
+    public void flush(){
+        this.buffer = null;
+    }
 }

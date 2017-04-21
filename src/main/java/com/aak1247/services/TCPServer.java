@@ -9,7 +9,7 @@ import java.util.Properties;
  * @author aak12 on 2017/4/20.
  */
 public class TCPServer {
-    public boolean start() {
+    public String start() {
         try {
             Utils utils = new Utils();
             Properties properties = utils.getProperties();
@@ -22,6 +22,7 @@ public class TCPServer {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String temp = null;
             String host = socket.getInetAddress().getHostAddress();
+
 //            while ((temp = bufferedReader.readLine())!=null){
             if (properties.containsValue(host)) {
                 String user = properties.keySet().stream()
@@ -43,6 +44,7 @@ public class TCPServer {
             inputStreamReader.close();
             inputStream.close();
             socket.close();
+            return host;
 //            }
         } catch (IOException e) {
             /*
@@ -50,7 +52,7 @@ public class TCPServer {
              */
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
     public static void main(String args[]){
         TCPServer tcpServer = new TCPServer();

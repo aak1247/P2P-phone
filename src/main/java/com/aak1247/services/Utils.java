@@ -22,12 +22,6 @@ public class Utils {
         }
     }
 
-    public static void main(String[] args) {
-        Utils utils = new Utils();
-        utils.setHost("aak1247", "192.169.0.1");
-        System.out.println(utils.getHost("aak1247"));
-        System.out.println(utils.getPort());
-    }
 
     /**
      * @return 返回配置文件中设定的端口号
@@ -61,4 +55,14 @@ public class Utils {
         return this.properties;
     }
 
+    public String getPhonePort(){
+        return this.properties.getProperty("phone.port");
+    }
+
+    public static void main(String[] args) {
+        Utils utils = new Utils();
+        utils.setHost("aak1247", "192.169.0.1");
+        System.out.println(utils.getHost("aak1247"));
+        System.out.println(utils.getPort());
+    }
 }
