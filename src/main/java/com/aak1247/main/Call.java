@@ -112,6 +112,7 @@ public class Call  {
                     audio.record(10);
                     byte[] sound = audio.getBuffer();
                     udpSender.send(host,sound);
+                    audio.flush();
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -122,6 +123,7 @@ public class Call  {
                 try {
                     byte[] sound = udpReceiver.receive();
                     audio.play(sound);
+                    audio.flush();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
