@@ -102,17 +102,21 @@ public class Call  {
     public void call(final String host) throws Exception{
         UDPSender udpSender = new UDPSender();
         UDPReceiver udpReceiver = new UDPReceiver();
-        Audio audio = new Audio();
+        Audio receiver = new Audio();
+        receiver.initPlayer();
+        Audio sender = new Audio();
+        sender.initRecorder();
+//        Audio audio = new Audio();
         Utils utils = new Utils();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("通话开始，按q结束通话");
         Thread say = new Thread(()->{
             try{
                 while (!Thread.currentThread().isInterrupted()){
-                    audio.record(10);
-                    byte[] sound = audio.getBuffer();
+                    sender.record(1024);
+                    byte[] sound = sender.getBuffer();
                     udpSender.send(host,sound);
-                    audio.flush();
+                    sender.flush();
                 }
             }catch (Exception e){
                 e.printStackTrace();
@@ -122,8 +126,8 @@ public class Call  {
             while (!Thread.currentThread().isInterrupted()){
                 try {
                     byte[] sound = udpReceiver.receive();
-                    audio.play(sound);
-                    audio.flush();
+                    receiver.play(sound);
+                    receiver.flush();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -135,5 +139,13 @@ public class Call  {
         say.interrupt();
         listen.interrupt();
         System.out.println("通话结束");
+    }
+    public static void main(String args[]){
+        Call call = new Call();
+        try {
+            call.startup();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

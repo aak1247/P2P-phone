@@ -9,16 +9,22 @@ import java.net.InetAddress;
  * @author  aak12 on 2017/4/20.
  */
 public class UDPSender {
+    private DatagramSocket datagramSocket;
+    public UDPSender(){
+        try {
+            datagramSocket = new DatagramSocket();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public boolean send(String host,byte[] senddata){
         Utils utils = new Utils();
-
         try {
-            int port = Integer.parseInt(utils.getPhonePort());
-            DatagramSocket datagramSocket = new DatagramSocket(port);
+//            int port = Integer.parseInt(utils.getPhonePort());
             InetAddress inetAddress = InetAddress.getByName(host);
-            DatagramPacket datagramPacket = new DatagramPacket(senddata,0,inetAddress,port);
+//            DatagramPacket datagramPacket = new DatagramPacket(senddata,senddata.length,inetAddress,port);
+            DatagramPacket datagramPacket = new DatagramPacket(senddata,senddata.length,inetAddress,8001);
             datagramSocket.send(datagramPacket);
-            datagramSocket.close();
         }catch (IOException e){
             e.printStackTrace();
         }
